@@ -37,3 +37,9 @@ body{
 .container-footer{
     margin-top: auto;
 }
+
+.container-res{
+    width: 100% !important;
+    display: flex;
+   align-items: center;
+}

@@ -6,59 +6,18 @@ const fr_no = document.getElementById("input-fr-no")
 const section_fr = document.querySelector(".section-fr")
 const section_perso = document.querySelector(".container-personalized")
 const input_cal = document.getElementById("input-cal")
-const input_ue = +(document.getElementById("input_ue")).value
-const input_ud = +(document.getElementById("input-ud")).value
 
 const calculate = () =>{
     const input_kg = +(document.getElementById("input-kg")).value
     const input_nw = +(document.getElementById("input-nw")).value
     const input_grados = +(document.getElementById("input-grados")).value
-    const gravedad = 9.8;
-    let ue
-    let ud  
-    let pesoy = input_kg * gravedad * Math.cos(input_grados * Math.PI / 180)
-    let fx = input_nw + input_kg * gravedad * Math.sin(input_grados * Math.PI / 180)
-    let ffe = ue * pesoy
-    let ffd = ud * pesoy
-    let fuerzaNeta = fx - ffd
-    if(ffe > fx){
-        console.log('Fuerza Aplicada:' + f + 'Newton\nFuerza de Friccion Estatica:' + ffe + 'Newton\nEste objeto no se mueve porque la friccion entre los cuerpos es muy grande');
-        a = 0
-    } else {
-        console.log(fuerzaNeta)
-        console.log(input_kg)
-        console.log(ue)
-        console.log(ud)
-        console.log(ffe)
-        console.log(ffd)
-        console.log(fuerzaNeta)
-        a = fuerzaNeta / input_kg
-        console.log('El objeto tiene una aceleracion de', a, 'm/s^2 (Valor positivo: movimiento -> Valor negativo: <-)')
-    }
-    if(a == 0){
-        console.log("El objeto no se mueve")
-    }
-
-}
-
-const show = (input) =>{
-    input.style.display = "flex"
-}
-
-const dontShow = (input) =>{
-    input.style.display = "none"
-}
-
-section_fr.addEventListener("click", (e) =>{
-    e.preventDefault();
     const input_mats = document.getElementById("input-mats").value
     console.log(input_mats)
-    if(input_mats == "10"){
-        show(section_perso)
-    } else{
-        dontShow(section_perso)
-    }
     switch(input_mats){
+        case("0"):
+            ue = 0
+            ud = 0
+            break;
         case ("1"):
             ue = 0.5
             ud = 0.3
@@ -95,11 +54,66 @@ section_fr.addEventListener("click", (e) =>{
             ue = 0.02
             ud = 0.003
             break;
-        case("10"):
-            ue = +(input_ue)
-            ud = +(input_ud)
-            break;
     } 
+    if(input_mats == "10"){
+        const input_ue = +(document.getElementById("input_ue")).value
+        const input_ud = +(document.getElementById("input-ud")).value
+        ue = +(input_ue)
+        ud = +(input_ud)
+    }
+    let fx = input_nw
+    const gravedad = 9.8;  
+    let pesoy = input_kg * gravedad * Math.cos(input_grados * Math.PI / 180)
+    fx = fx + input_kg * gravedad * Math.sin(input_grados * Math.PI / 180)
+    let ffe = ue * pesoy
+    let ffd = ud * pesoy
+    let fuerzaNeta = fx - ffd
+    if(ffe > Math.abs(fx)){
+        let resNAc = 'Fuerza Aplicada: ' + input_nw + ' Newton\nFuerza de Friccion Estatica: ' + ffe + ' Newton\nEste objeto no se mueve porque la friccion entre los cuerpos es muy grande'
+        response(resNAc)
+        console.log(resNAc)
+        a = 0
+    } else if (ffe < Math.abs(fx)){
+        a = fuerzaNeta / input_kg
+        let resAc = 'El objeto tiene una aceleracion de ' + a + ' m/s^2 \n(Valor positivo: movimiento -> Valor negativo: <-)'
+        response(resAc)
+        console.log(resAc)
+    }
+}
+
+const response = (res) => {
+    clearResponse();
+    let container_res = document.querySelector(".container-res")
+    let responseDiv = document.createElement("div");
+    responseDiv.innerHTML = `<h4>Respuesta</h4>
+                        <p>${res}</p>`;
+    container_res.appendChild(responseDiv);
+}
+
+const clearResponse = () =>{
+    const responses = document.querySelector("#idResponse");
+    while (responses.firstChild) {
+        responses.removeChild(responses.firstChild);
+    }
+}
+
+const show = (input) =>{
+    input.style.display = "flex"
+}
+
+const dontShow = (input) =>{
+    input.style.display = "none"
+}
+
+section_fr.addEventListener("click", (e) =>{
+    e.preventDefault();
+    const input_mats = document.getElementById("input-mats").value
+    console.log(input_mats)
+    if(input_mats == "10"){
+        show(section_perso)
+    } else{
+        dontShow(section_perso)
+    }
 })
 
 plano_si.addEventListener("click", (e) =>{

@@ -1,6 +1,4 @@
-var math = require('math')
-var plt = require('matplotlib.pyplot')
-var np = require('numpy')
+import math
 case = True
 array = [[],[]]
 while case == True:
@@ -13,7 +11,7 @@ while case == True:
     if planoInc == 's':
         global inc
         inc = int(input('¿Cuantos grados(°) esta inclinado el plano? '))
-        while inc > 90or inc < 0:
+        while inc > 90 or inc < 0:
             print('No es posible, ingrese otro valor ')
             inc = int(input('¿Cuantos grados(°) esta inclinado el plano? '))
             fx = fx + m * g * math.sin(inc * math.pi / 180)
@@ -38,6 +36,8 @@ while case == True:
         if ffe > abs(fx):
             print('Fuerza Aplicada:', f, 'Newton\nFuerza de Friccion Estatica:', ffe, 'Newton\nEste objeto no se mueve porque la friccion entre los cuerpos es muy grande')
             a = 0
+            print(fx)
+            print(pesoy)
             exit()
         else:
           a = fuerzaNeta / m
@@ -49,29 +49,3 @@ while case == True:
             print('Este objeto no se mueve')
     if input('¿Desea evaluar otro caso? (s/n) ') == 's': case = True
     else: case = False
-    array[0].append(a)
-order = lambda array: array
-arrayOrder = array[0][:]
-array[0].sort(reverse = True)
-print('Valores de aceleración de mayor a menor')
-for i in range(len(array[0])): print('Objeto ', arrayOrder.index(array[0][i]) + 1, ':', array[0][i], 'm/s2')
-if planoInc == 's':
-    angle = np.deg2rad(inc)
-    vertices = np.array([[np.cos(angle), 0, 0, np.cos(angle)], [0, 0, np.sin(angle), 0],])
-    plt.axis('off')
-    plt.plot(*vertices)
-    plt.figure()
-    plt.scatter(array[0], array[0])
-    plt.axis('equal')
-    plt.show():
-:
-:
-:
-:
-w()
-    }
-        }
-
-    }
-
-}
