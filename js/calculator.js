@@ -69,12 +69,12 @@ const calculate = () => { // ! Funcion para calcular todo
         let ffd = ud * pesoy // ! Calcula el valor de la fuerza de friccion dinamica
         let fuerzaNeta = fx - ffd // ! Calcula el valor de la fuerza Neta
         if (ffe > Math.abs(fx)) { // ! Si la fuerza de friccion estatica es mayor al VALOR ABOSOLUTO de la fuerza en X NO SE MUEVE
-            let resNAc = 'Fuerza Aplicada: ' + input_nw + ' Newton\nFuerza de Friccion Estatica: ' + ffe + ' Newton\nEste objeto no se mueve porque la friccion entre los cuerpos es muy grande'
+            let resNAc = 'Fuerza Aplicada: ' + input_nw + ' Newton\nFuerza de Friccion Estatica: ' + ffe.toFixed(2) + ' Newton Este objeto no se mueve porque la friccion entre los cuerpos es muy grande'
             response(resNAc) // ! Guarda la respuesta en una variable para mostrarla luego con DOM
             a = 0
         } else if (ffe < Math.abs(fx)) { // ! Si la fuerza de friccion estatica es menor al VALOR ABSOLUTO de la fuerza en X se mueve
             a = fuerzaNeta / input_kg // ! Calcula la aceleracion
-            let resAc = 'El objeto tiene una aceleracion de ' + a + ' m/s^2 \n(Valor positivo: movimiento -> Valor negativo: <-)'
+            let resAc = 'El objeto tiene una aceleracion de ' + a.toFixed(2) + ' m/s^2 (Valor positivo: movimiento -> Valor negativo: <-)'
             response(resAc) // ! Guarda la respuesta en una variable para mostrarla luego con DOM
         }
     } else{
@@ -82,33 +82,48 @@ const calculate = () => { // ! Funcion para calcular todo
             icon: 'error',
             title: 'ERROR!',
             text: 'Ingrese un valor de grados entre 0 y 90',
-          })
+        })
     }
 
 }
 
 const response = (res) => { // ! DOM para mostrar la respuesta
-    clearResponse();
-    let container_res = document.querySelector(".container-res")
-    let responseDiv = document.createElement("div");
-    responseDiv.innerHTML = `<h4>Respuesta</h4>
-                        <p>${res}</p>`;
-    container_res.appendChild(responseDiv);
+
+    Swal.fire({
+        icon: 'success',
+        title: '¡Calculado correctamente!',
+        text: res,
+    })
+    // clearResponse();
+    // let container_res = document.querySelector(".res")
+    // let responseDiv = document.createElement("p");
+    // responseDiv.innerHTML = `${res}`;
+    // container_res.appendChild(responseDiv);
+    // responseDiv.style.animation = "fadeIn 1s"
+    
 }
 
-const clearResponse = () => { // ! Funcion para borrar la respuesta anterior para que aparezca una nueva
+/*const clearResponse = () => { // ! Funcion para borrar la respuesta anterior para que aparezca una nueva
     const responses = document.querySelector("#idResponse");
     while (responses.firstChild) {
         responses.removeChild(responses.firstChild);
     }
-}
+}*/
 
 const show = (input) => { // ! Funcion para mostrar un contenedor
-    input.style.display = "flex"
+    input.style.animation = "fadeIn 1s"
+    input.style.opacity = "1"
 }
 
 const dontShow = (input) => { // ! Funcion para NO mostrar un contenedor
-    input.style.display = "none"
+    if (input.style.opacity == "0"){
+        input.style.opacity = "0"
+    } else{
+        input.style.opacity = "0"
+        input.style.animation = "fadeOut 1s"
+    }
+    
+    
 }
 
 section_fr.addEventListener("click", (e) => { // ! Evento para saber que material de friccion está usando
@@ -137,6 +152,7 @@ fr_si.addEventListener("click", (e) => { // ! Evento para saber si se toca el bo
 fr_no.addEventListener("click", (e) => { // ! Evento para saber si se toca el boton NO de friccion
     e.preventDefault();
     dontShow(section_fr)
+    dontShow(section_perso)
 })
 
 input_cal.addEventListener("click", (e) => { // ! Saber si se toca el boton calcular

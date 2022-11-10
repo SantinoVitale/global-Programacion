@@ -1,9 +1,10 @@
+@import url("https://rsms.me/inter/inter.css");
 body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
-    background-color: aquamarine !important;
+    background-color: #d3d3d3 !important;
+    
 }
 
 .container-header{
@@ -16,37 +17,27 @@ body{
 .container-main{
     display:grid;
     grid-template-areas:
-    "input_kg si_inclinado respuesta"
-    "input_nw si_friccion .."
-    "btn_inclinado fr_perso .."
-    "btn_friccion .. .."
-    "btn_cal .. .."
-    "btn_reset .. .."
+    "input_kg btn_friccion"
+    "input_nw si_friccion"
+    "btn_inclinado fr_perso"
+    "si_inclinado btn_cal"
     ;
+    align-items: center;
     grid-column-gap: 50px;
     grid-row-gap: 25px;
 }
 
 .container-KG{
-    display: flex;
     grid-area: input_kg;
-    flex-direction: column;
-    width: fit-content;
 }
 
 .container-NW{
     grid-area: input_nw;
-    display: flex;
-    flex-direction: column;
-    width: min-content;
 }
 
 .container-inclinado{
     grid-area: btn_inclinado;
-    display: flex;
-    flex-direction: column;
-    width: fit-content;
-    justify-items: center;
+    height: fit-content !important;
 }
 .container-inclinado input{
     width: min-content;
@@ -55,110 +46,176 @@ body{
 
 }
 .section-grades{
-    display: flex;
     grid-area: si_inclinado;
-    flex-direction: column;
-    width: fit-content;
 }
 .container-fr{
     grid-area: btn_friccion;
-    display: flex;
-    flex-direction: column;
-    width: fit-content;
 }
 .section-fr{
     grid-area: si_friccion;
-    display: flex;
-    flex-direction: column;
-    width: fit-content;
 }
 .container-personalized{
     grid-area: fr_perso;
-    display: flex;
-    flex-direction: column;
-    width: fit-content;
 }
 .btn_cal{
     grid-area: btn_cal;
-    display: flex;
-    flex-direction: column;
     width: fit-content;
+    padding: 25px;
+    justify-self: center;
+    border: 3px solid var(--color-dark);
+    width: 100%;
+    background-color: orange;
+    font-size: 30px;
 }
 .container-res{
     grid-area: respuesta;
+    text-align: center;
 }
-.input_reset{
-    grid-area: btn_reset;
+.container-res p{
+    font-size: 18px;
+    font-weight: 500;
 }
 
 .container-footer{
     margin-top: auto;
     grid-area: footer;
+    font-size: 20px;
+    margin-top: 40px;
 }
 
-.container-res{
-    width: 100% !important;
-    display: flex;
-   align-items: center;
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
 }
 
-
-.form__group {
-  position: relative;
-  padding: 15px 0 0;
-  margin-top: 10px;
-  width: 50%;
+@keyframes fadeOut {
+    0% {opacity: 1;}
+    100% {opacity: 0;}
 }
 
-.form__field {
-  font-family: inherit;
-  width: 100%;
-  border: 0;
-  border-bottom: 2px solid #9b9b9b;
-  outline: 0;
-  font-size: 1.3rem;
-  color: #fff;
-  padding: 7px 0;
-  background: transparent;
-  transition: border-color 0.2s;
+/* ! SASS compilado */
+:root {
+    --color-light: white;
+    --color-dark: #212121;
+    --color-signal: #fab700;
+    --color-background: var(--color-light);
+    --color-text: var(--color-dark);
+    --color-accent: var(--color-signal);
+    --size-bezel: 0.5rem;
+    --size-radius: 4px;
+    line-height: 1.4;
+    font-family: "Inter", sans-serif;
+    font-size: calc(0.6rem + 0.4vw);
+    color: var(--color-text);
+    background: var(--color-background);
+    font-weight: 300;
 }
 
-.form__label {
-  position: absolute;
-  top: 0;
-  display: block;
-  transition: 0.2s;
-  font-size: 1rem;
-  color: #9b9b9b;
+h1,
+h2,
+h3 {
+    font-weight: 900;
 }
 
-.form__field:focus ~ .form__label{
+mark {
+    background: var(--color-accent);
+    color: var(--color-text);
+    font-weight: bold;
+    padding: 0 0.2em;
+}
+
+.card {
+    background: var(--color-background);
+    padding: calc(4 * var(--size-bezel));
+    margin-top: calc(4 * var(--size-bezel));
+    border-radius: var(--size-radius);
+    border: 3px solid var(--color-shadow, currentColor);
+    box-shadow: 0.5rem 0.5rem 0 var(--color-shadow, currentColor);
+}
+.card--inverted {
+    --color-background: var(--color-dark);
+    color: var(--color-light);
+    --color-shadow: var(--color-accent);
+    background-color: var(--color-dark) !important;
+}
+.card--accent {
+    --color-background: var(--color-signal);
+    --color-accent: var(--color-light);
+    color: var(--color-dark);
+    background-color: #fab700 !important;
+}
+.card *:first-child {
+    margin-top: 0;
+}
+
+.l-design-widht {
+    max-width: 40rem;
+    padding: 1rem;
+}
+
+.input {
+    position: relative;
+}
+.input__label {
     position: absolute;
+    left: 0;
     top: 0;
+    padding: calc(var(--size-bezel) * 0.75) calc(var(--size-bezel) * 0.5);
+    margin: calc(var(--size-bezel) * 0.75 + 3px) calc(var(--size-bezel) * 0.5);
+    background: pink;
+    white-space: nowrap;
+    transform: translate(0, 0);
+    transform-origin: 0 0;
+    background: var(--color-background);
+    transition: transform 120ms ease-in;
+    font-weight: bold;
+    line-height: 1.2;
+}
+.input__field {
+    box-sizing: border-box;
     display: block;
-    transition: 0.2s;
-    font-size: 1rem;
-    color: #11998e;
-    font-weight:700;    
+    width: 100%;
+    border: 3px solid currentColor;
+    padding: calc(var(--size-bezel) * 1.5) var(--size-bezel);
+    color: currentColor;
+    background: transparent;
+    border-radius: var(--size-radius);
+}
+.input__field:focus + .input__label,
+.input__field:not(:placeholder-shown) + .input__label {
+    transform: translate(0.25rem, -65%) scale(0.8);
+    color: var(--color-accent);
 }
 
-.form__field::placeholder {
-    color: transparent;
-  }
+.button-group {
+    margin-top: calc(var(--size-bezel) * 2.5);
+}
 
-  .form__field:placeholder-shown ~ .form__label {
-    font-size: 1.3rem;
-    cursor: text;
-    top: 20px;
-  }
-/* demo */
-body {
-  font-family: 'Poppins', sans-serif; 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  font-size: 1.5rem;
-  background-color:#222222;
+input {
+    color: currentColor;
+    padding: var(--size-bezel) calc(var(--size-bezel) * 2);
+    background: var(--color-accent);
+    border: none;
+    border-radius: var(--size-radius);
+    font-weight: 900;
+}
+input[type="reset"] {
+    background: var(--color-background);
+    font-weight: 700;
+    background-color: #fab700;
+}
+
+input + input {
+    margin-left: calc(var(--size-bezel) * 2);
+}
+
+.icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    margin-right: 0.5em;
+}
+
+.hidden {
+    display: none;
 }
